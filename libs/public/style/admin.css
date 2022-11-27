@@ -1,0 +1,95 @@
+.box-content-dashboard {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box-content {
+    width: 70%;
+    height: 50px;
+    background-color: #fff;
+    box-shadow: 0 0 5px 5px #dbdada;
+    margin-right: 20px;
+    padding: 10px;
+    transition: .3s ease-in-out;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.box-content:hover {
+    box-shadow: 0 0 5px 5px #c4b9b9;
+}
+
+.box-content-dashboard ul {
+    list-style: disc;
+    text-align: start;
+    padding: 10px;
+}
+
+.box-content-dashboard th {
+    background-color: #0f62f9;
+    color: #fff;
+}
+
+.box-content-dashboard table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.box-content-dashboard table, .box-content-dashboard td, .box-content-dashboard th {
+    border: 1px solid #9ab3e0;
+    text-align: center;
+    padding: 15px;
+}
+
+.box-content-dashboard .btn {
+    background-color: #fff;
+    color: #0f62f9;
+    transition: .3s ease-in-out;
+    margin: 10px;
+}
+
+.box-content-dashboard .btn:hover {
+    background-color: #0f62f9;
+    color: #fff;
+}
+
+.box-content-dashboard .btn-form {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.action-btn {
+    margin-right: 20px;
+    text-align: start;
+    border: none;
+    color: #0f62f9;
+}
+
+.box-content-dashboard td img {
+    width: 75px;
+}
+
+.box-content-dashboard {
+    
+}
+
+.form-search-dashboard {
+    justify-content: center; 
+    margin-top: 30px; 
+    margin-bottom: -10px; 
+    flex-wrap: wrap;
+}
+
+.form-search-dashboard .form-control {
+    width: 40%;
+    display: initial;
+}
+
+.form-search-dashboard .btn-search-dashboard {
+    border-radius: 0px;
+}
