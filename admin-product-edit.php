@@ -84,6 +84,12 @@ if (isset($_POST["submit"])) {
         $errorValidation['agent_id'] = "Nhà cung cấp không được để trống";
     }
 
+    if (empty($_POST['for_sick'])) {
+        $errorValidation['for_sick'] = "Mục sử dụng cho bệnh không được để trống";
+    } elseif (!empty($_POST['for_sick']) && strlen($_POST['for_sick']) > 1000) {
+        $errorValidation['description'] = "Mục sử dụng cho bệnh quá dài";
+    }
+
     if (empty($_POST['description'])) {
         $errorValidation['description'] = "Mô tả sản phẩm không được để trống";
     } elseif (!empty($_POST['description']) && strlen($_POST['description']) > 1000) {
@@ -99,6 +105,7 @@ if (isset($_POST["submit"])) {
             'price_b'    => $_POST['price_b'],
             'date'    => $_POST['date'],
             'description'  => $_POST['description'],
+            'for_sick'  => $_POST['for_sick'],
             'agent_id'  => new ObjectId($_POST['agent_id']),
             'category_id'  => new ObjectId($_POST['category_id']),
             'quantity'    => (int)($data[0]->quantity + $_POST['quantity']),
@@ -126,7 +133,7 @@ if (isset($_POST["submit"])) {
                 'updated_at' => date('d/m/Y H:i'),
             ]);
         }
-        
+
         $messageSuccess = 'Cập nhật thông tin thành công !!!';
     }
 }
@@ -219,7 +226,7 @@ if (isset($_POST["submit"])) {
                                         <tr>
                                             <td><label for="">Nhập thêm:</label></td>
                                             <td>
-                                                <input type="number" name="quantity" min="0" max="1000" class="form-control" placeholder="Từ 0 - 1000" value="<?= oldValue('quantity') ?>">
+                                                <input type="number" name="quantity" min="0" max="1000" class="form-control" placeholder="Từ 0 - 1000" value="<?= !empty(oldValue('quantity')) ? oldValue('quantity') : 0 ?>">
                                                 <?php if (!empty($errorValidation['quantity'])) : ?><span class="text-danger"><?= $errorValidation['quantity'] ?></span><?php endif; ?>
                                             </td>
                                         </tr>
@@ -258,6 +265,13 @@ if (isset($_POST["submit"])) {
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <?php if (!empty($errorValidation['agent_id'])) : ?><span class="text-danger"><?= $errorValidation['agent_id'] ?></span><?php endif; ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="">Sử dụng cho bệnh:</label></td>
+                                            <td>
+                                                <textarea cols="30" rows="4" name="for_sick" class="form-control" placeholder="Sử dụng cho bệnh"><?= !empty($data[0]->for_sick) ? $data[0]->for_sick : '' ?></textarea>
+                                                <?php if (!empty($errorValidation['for_sick'])) : ?><span class="text-danger"><?= $errorValidation['for_sick'] ?></span><?php endif; ?>
                                             </td>
                                         </tr>
                                         <tr>
