@@ -1,5 +1,6 @@
 <!-- ACTION  -->
 <?php
+require_once "./controller/SearchProductController.php";
 
 use MongoDB\BSON\Regex;
 
@@ -9,9 +10,30 @@ include "./app/helper.php";
 include "./app/connect.php";
 
 // Get data product search
-$nameProduct = $_GET['search_name'] ?? '';
+$nameProduct = $_POST['search_name'] ?? '';
 $nameProductRegex = new Regex($nameProduct, 'i');
 $data = $productCollection->find(['name' => $nameProductRegex])->toArray();
+$isSearchByImage = false;
+$dataSearchByImage = [];
+$isHasDataSearchByImage = false;
+
+if (isset($_FILES['search_image']) && !empty($_FILES['search_image']["name"])) {
+    $searchProducByImage = new SearchProductController();
+    $dataSearchByImage = $searchProducByImage->handleSearchByImage($_FILES['search_image']);
+
+    if (count($dataSearchByImage) > 0) {
+        $isSearchByImage = true;
+        $param = $searchProducByImage->prepareParam($dataSearchByImage['prediction']);
+        $dataFindBySick = $productCollection->find(['for_sick' => new Regex($param['sick'], 'i')])->toArray();
+
+        if (count($dataFindBySick) > 0) {
+            $data = $dataFindBySick;
+            $isHasDataSearchByImage = true;
+        } else {
+            $data = $productCollection->find(['name' => $nameProductRegex])->toArray();
+        }
+    }
+}
 ?>
 <!-- END ACTION  -->
 
@@ -78,6 +100,29 @@ $data = $productCollection->find(['name' => $nameProductRegex])->toArray();
                     <center>
                         <h3 class="title-product-block">Kết quả tìm kiếm: <?= $_GET['search_name'] ?? '' ?></h3>
                     </center>
+
+                    <?php if ($isSearchByImage) : ?>
+                        <div class="row" style="flex-direction: column; margin-top: 10px; width: 85%;padding: 0 20px;margin: 0 auto;">
+                            <br>
+                            <img src="<?= URL_PYTHON_MODULE . '/' . $dataSearchByImage['image_path'] ?>" alt="" style="width:150px; height: 150px;margin: 0 auto;" />
+                            <br>
+                            <hr>
+                            <p><i><b>Dự đoán bệnh:</b></i> <?= !empty($dataSearchByImage['prediction']) ? $dataSearchByImage['prediction'] : '' ?></p>
+                            <p><i><b>Lời khuyên:</b></i> <?= !empty($dataSearchByImage['story']) ? $dataSearchByImage['story'] : '' ?></p>
+                        </div>
+
+                        <center>
+                            <?php if ($isHasDataSearchByImage) : ?>
+                                <h3 class="title-product-block">Thuốc đề xuất:</h3>
+                            <?php else : ?>
+                                <h3 class="title-product-block">Thuốc đề xuất:</h3>
+                                <div class="row" style="justify-content: center;">
+                                    <center>Không có kết quả tìm kiếm phù hợp !!!</center>
+                                </div>
+                                <h3 class="title-product-block">Các thuốc đang bán tại cửa hàng:</h3>
+                            <?php endif; ?>
+                        </center>
+                    <?php endif; ?>
 
                     <div class="row list_product">
                         <?php foreach ($data as $product) : ?>

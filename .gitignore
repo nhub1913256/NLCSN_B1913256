@@ -2,3 +2,6 @@
 ./vendor/*
 /vendor
 vendor
+./myenv/*
+myenv
+./myenv

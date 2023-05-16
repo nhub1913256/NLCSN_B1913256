@@ -133,6 +133,10 @@ if (isset($_POST['add_to_cart'])) {
                                                         <?php if (!empty($errorValidation['id'])) : ?><span class="text-danger"><?= $errorValidation['id'] ?></span><?php endif; ?>
                                                         <p>Chức năng: <i><?= !empty($data->description) ? $data->description : '' ?></i></p>
                                                         <br>
+                                                        <?php if (!empty($data->for_sick)) : ?>
+                                                            <p>Sử dụng cho bệnh: <i><?= !empty($data->for_sick) ? $data->for_sick : '' ?></i></p>
+                                                        <?php endif; ?>
+                                                        <br>
                                                         <p>Số lượng còn: <i><?= !empty($data->quantity) ? $data->quantity : 0 ?></i></p>
                                                         <?php if (!empty($errorValidation['quantity'])) : ?><span class="text-danger"><?= $errorValidation['quantity'] ?></span><?php endif; ?>
                                                         <div class="product-price">

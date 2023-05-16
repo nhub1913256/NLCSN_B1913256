@@ -346,14 +346,16 @@ table tr {
     text-align: center;
 }
 
-.btn-form button, .btn-form a {
+.btn-form button,
+.btn-form a {
     background-color: #fff;
     color: #0f62f9;
     border-radius: 5px;
     transition: .3s linear;
 }
 
-.btn-form button:hover, .btn-form a:hover {
+.btn-form button:hover,
+.btn-form a:hover {
     background-color: #0f62f9;
     color: #fff;
 }

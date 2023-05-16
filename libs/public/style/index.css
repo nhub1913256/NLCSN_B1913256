@@ -29,6 +29,8 @@
 
 .header-sub {
     height: 70px;
+    position: relative;
+    z-index: 10000000;
 }
 
 .header-sub img {
@@ -44,7 +46,7 @@
     background-color: #54aeee !important;
     text-transform: uppercase;
     /* position: relative; */
-    position:sticky;
+    position: sticky;
     top: 0px;
     z-index: 1000000;
 }
@@ -87,7 +89,7 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 10000;
     transform: scale(0.8);
-    opacity:0.5;
+    opacity: 0.5;
     border-radius: 30px;
 }
 
@@ -129,6 +131,7 @@
 .content-main {
     margin-top: 20px;
 }
+
 .content-block-banner {
     height: 330px;
     background-color: #3AABF1;
@@ -190,5 +193,5 @@
 .content-left .content-box-left .content-box-info {
     margin-top: 50px;
 }
-/* END CONTENT  */
 
+/* END CONTENT  */
